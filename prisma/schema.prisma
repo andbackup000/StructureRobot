@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Trades {
+  id        String   @id @default(uuid())
+  orderId   String   @unique
+  symbol    String
+  side      String
+  moment    String
+  quantity  Decimal
+  priceUSD  Decimal
+  timestamp Decimal
+  create_at DateTime @default(now())
+
+  @@map("trades_operations")
+}

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+    postgres-compose:
+        container_name: postgres-exemplo
+        image: postgres:13
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=sysdba
+            - POSTGRES_DB=nomebanco
+            - TZ=GMT
+        ports:
+            - 15432:5432
+        volumes:
+            - ./.docker/data/postgres:/var/lib/postgresql/data
+
+    pgadmin-compose:
+        container_name: pgadmin-exemplo
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: test@email.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+        ports:
+            - "16543:80"
+        depends_on:
+            - postgres-compose
+        volumes:
+            - ./.docker/data/pgadmin:/root/.pgadmin
+
+
+            
+            
